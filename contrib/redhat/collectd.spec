@@ -1428,6 +1428,7 @@ rm -f %{buildroot}%{_mandir}/man5/collectd-perl.5*
 rm -f %{buildroot}%{_mandir}/man3/Collectd::Unixsock.3pm*
 rm -fr perl-examples/
 rm -fr %{buildroot}/usr/lib/perl5/
+rm -fr %{buildroot}/usr/share/perl5/
 %endif
 
 %if ! %{with_python}
@@ -1786,14 +1787,11 @@ fi
 %if %{with_perl}
 %files perl
 %doc perl-examples/*
-/usr/share/perl5/Collectd.pm
-/usr/share/perl5/Collectd/
+%{perl_vendorlib}/Collectd.pm
+%{perl_vendorlib}/Collectd/
 %{_mandir}/man3/Collectd::Unixsock.3pm*
 %{_mandir}/man5/collectd-perl.5*
 %{_libdir}/%{name}/perl.so
-%else
-%ghost /usr/share/perl5/Collectd.pm
-%ghost /usr/share/perl5/Collectd/
 %endif
 
 %if %{with_pinba}
