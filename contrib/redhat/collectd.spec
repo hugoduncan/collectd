@@ -1791,6 +1791,9 @@ fi
 %{_mandir}/man3/Collectd::Unixsock.3pm*
 %{_mandir}/man5/collectd-perl.5*
 %{_libdir}/%{name}/perl.so
+%else
+%ghost %{perl_vendorlib}/Collectd.pm
+%ghost %{perl_vendorlib}/Collectd/
 %endif
 
 %if %{with_pinba}
