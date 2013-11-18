@@ -1786,14 +1786,14 @@ fi
 %if %{with_perl}
 %files perl
 %doc perl-examples/*
-%{perl_vendorlib}/Collectd.pm
-%{perl_vendorlib}/Collectd/
+/usr/share/perl5/Collectd.pm
+/usr/share/perl5/Collectd/
 %{_mandir}/man3/Collectd::Unixsock.3pm*
 %{_mandir}/man5/collectd-perl.5*
 %{_libdir}/%{name}/perl.so
 %else
-%ghost %{perl_vendorlib}/Collectd.pm
-%ghost %{perl_vendorlib}/Collectd/
+%ghost /usr/share/perl5/Collectd.pm
+%ghost /usr/share/perl5/Collectd/
 %endif
 
 %if %{with_pinba}
