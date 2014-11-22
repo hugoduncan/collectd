@@ -567,6 +567,7 @@ find %{buildroot} -name perllocal.pod -exec rm {} \;
 rm -f %{buildroot}/%{_datadir}/collectd/collection3/etc/collection.conf
 cp -ad contrib/collection3/* %{buildroot}/%{_datadir}/collectd/collection3/
 rm -f %{buildroot}/%{_datadir}/collectd/collection3/etc/collection.conf
+rm -f %{buildroot}%{_sysconfdir}/collectd.conf.pkg-orig
 cp %{SOURCE1} %{buildroot}/%{_sysconfdir}/httpd/conf.d/collectd.conf
 cp %{SOURCE2} %{buildroot}%{_sysconfdir}/collection.conf
 ln -s %{_sysconfdir}/collection.conf %{buildroot}/%{_datadir}/collectd/collection3/etc/collection.conf
@@ -656,7 +657,6 @@ fi
 %exclude %{_sysconfdir}/collectd.d/dns.conf
 %exclude %{_sysconfdir}/collectd.d/email.conf
 %exclude %{_sysconfdir}/collectd.d/ipmi.conf
-%exclude %{_sysconfdir}/collectd.d/libvirt.conf
 %exclude %{_sysconfdir}/collectd.d/mysql.conf
 %exclude %{_sysconfdir}/collectd.d/nginx.conf
 %if %{with nut}
@@ -665,11 +665,12 @@ fi
 %endif
 %endif
 %exclude %{_sysconfdir}/collectd.d/perl.conf
-%exclude %{_sysconfdir}/collectd.d/ping.conf
 %exclude %{_sysconfdir}/collectd.d/postgresql.conf
 %exclude %{_datadir}/collectd/postgresql_default.conf
 %exclude %{_sysconfdir}/collectd.d/rrdtool.conf
+%if %{with sensors}
 %exclude %{_sysconfdir}/collectd.d/sensors.conf
+%endif
 %exclude %{_sysconfdir}/collectd.d/snmp.conf
 
 %if %{with systemd}
@@ -923,7 +924,6 @@ fi
 %if %{with ping}
 %files ping
 %{_libdir}/collectd/ping.so
-%config(noreplace) %{_sysconfdir}/collectd.d/ping.conf
 %endif
 
 
@@ -965,7 +965,6 @@ fi
 %ifnarch ppc ppc64 sparc sparc64
 %files virt
 %{_libdir}/collectd/libvirt.so
-%config(noreplace) %{_sysconfdir}/collectd.d/libvirt.conf
 %endif
 %endif
 
