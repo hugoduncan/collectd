@@ -564,6 +564,7 @@ find %{buildroot} -name .packlist -exec rm {} \;
 find %{buildroot} -name perllocal.pod -exec rm {} \;
 
 # copy web interface
+rm -f %{buildroot}/%{_datadir}/collectd/collection3/etc/collection.conf
 cp -ad contrib/collection3/* %{buildroot}/%{_datadir}/collectd/collection3/
 rm -f %{buildroot}/%{_datadir}/collectd/collection3/etc/collection.conf
 cp %{SOURCE1} %{buildroot}/%{_sysconfdir}/httpd/conf.d/collectd.conf
