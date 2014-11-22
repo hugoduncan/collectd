@@ -11,15 +11,21 @@
 
 # disable specific subpackages
 %bcond_with ascent
+%bcond_with barometer
+%bcond_with log_logstash
+%bcond_with openldap
 %bcond_with pinba
 %bcond_with riemann
+%bcond_with smart
+%bcond_with virt
+%bcond_with kafka
 
 %global _hardened_build 1
 %global __provides_exclude_from ^%{_libdir}/collectd/.*\\.so$
 
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
-Version: 5.4.1.85.g232898b
+Version: 5.4.1.623.g366e1e7
 Release: 1%{?_buildid}%{?dist}
 License: GPLv2
 Group: System Environment/Daemons
@@ -459,6 +465,9 @@ sed -i.orig -e 's|-Werror||g' Makefile.in */Makefile.in
 %if %{without ascent}
     --disable-ascent \
 %endif
+%if %{without barometer}
+    --disable-barometer \
+%endif
 %if %{without yajl}
     --disable-curl_json \
 %endif
@@ -467,6 +476,9 @@ sed -i.orig -e 's|-Werror||g' Makefile.in */Makefile.in
     --disable-aquaero \
 %if %{without libvirt}
     --disable-libvirt \
+%endif
+%if %{without log_logstash}
+    --disable-log_logstash \
 %endif
     --disable-lpar \
     --disable-mic \
@@ -484,10 +496,16 @@ sed -i.orig -e 's|-Werror||g' Makefile.in */Makefile.in
     --disable-nut \
 %endif
     --disable-onewire \
+%if %{without openldap}
+    --disable-openldap \
+%endif
     --disable-oracle \
     --disable-pf \
 %if %{without pinba}
     --disable-pinba \
+%endif
+%if %{without kafka}
+    --disable-write_kafka \
 %endif
 %if %{without riemann}
     --disable-write_riemann \
@@ -504,8 +522,14 @@ sed -i.orig -e 's|-Werror||g' Makefile.in */Makefile.in
     --disable-sensors \
 %endif
     --disable-sigrok \
+%if %{without smart}
+    --disable-smart \
+%endif
     --disable-tape \
     --disable-tokyotyrant \
+%if %{without virt}
+    --disable-virt \
+%endif
     --disable-write_mongodb \
     --disable-write_redis \
     --disable-xmms \
@@ -672,6 +696,7 @@ fi
 %{_libdir}/collectd/csv.so
 %{_libdir}/collectd/df.so
 %{_libdir}/collectd/disk.so
+%{_libdir}/collectd/drbd.so
 %{_libdir}/collectd/entropy.so
 %{_libdir}/collectd/ethstat.so
 %{_libdir}/collectd/exec.so
@@ -729,6 +754,7 @@ fi
 %{_libdir}/collectd/wireless.so
 %{_libdir}/collectd/write_graphite.so
 %{_libdir}/collectd/write_http.so
+%{_libdir}/collectd/write_tsdb.so
 
 %{_datadir}/collectd/types.db
 
